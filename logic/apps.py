@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class RateConfig(AppConfig):
+class LogicConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'rate'
+    name = 'logic'
 
     def ready(self):
         import logic.signals
