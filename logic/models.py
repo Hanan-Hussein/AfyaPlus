@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     profilephoto = CloudinaryField("profilephoto")
     user = models.OneToOneField(User,  related_name='profiles' ,on_delete=models.CASCADE)
-    
+    specialization = models.CharField(max_length=50,blank=True)
+
     ADMIN = 'ADMIN'
     DOCTOR = 'DOCTOR'
     PATIENT = 'PATIENT'
@@ -36,3 +37,8 @@ class Profile(models.Model):
     @classmethod
     def delete_profile(cls, profile):
         cls.delete(profile)
+
+class Appointments(models.Model):
+    date_appointment = models.DateTimeField() 
+    users = models.ForeignKey(User, related_name="users", on_delete=models.CASCADE)
+    symptoms =  models.TextField()
