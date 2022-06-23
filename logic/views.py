@@ -1,34 +1,26 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse,Http404,HttpResponseRedirect
-from django.db.models import Q
-from django.contrib.auth.models import User
-from django.contrib import messages
-from .models import doctors, Profile
-from .forms import doctorsForm
-from django.http import JsonResponse
-import json
+from django.shortcuts import render, redirect
+from .forms import doctorsForm, AppointmentsForm
 
-# Create your views here.
 
 def index(request):
 
-     return render(request, 'doctors.html')
+    return render(request, 'doctors.html')
 
 
 def new_doctor(request):
-    if request.method=="POST":
-        form =doctorsForm(request.POST,request.FILES)
+    if request.method == "POST":
+        form = doctorsForm(request.POST, request.FILES)
         if form.is_valid():
-            doctor = form.save(commit = False)
+            doctor = form.save(commit=False)
             doctor.name = request.user
             doctor.save()
 
-        return HttpResponseRedirect('/doctors')
+        return redirect('home')
 
     else:
         form = doctorsForm()
 
-    return render(request,'new_doctor.html',{"form":form})
+    return render(request, 'new_doctor.html', {"form": form})
 
 
 def doctor(request):
@@ -37,7 +29,21 @@ def doctor(request):
 
     return render(request,'doctors.html',{"doctors":all_doctors})
 def home(request):
-    return render(request,'base.html')
+    return render(request, 'base.html')
+
 
 def patientprofile(request):
-    return render(request,'patient_profile.html')
+    return render(request, 'patient_profile.html')
+
+
+def appointment(request):
+    form = AppointmentsForm()
+    if request.method == 'POST':
+        form = AppointmentsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context = {
+        'form': form,
+    }
+    return render(request, 'appointment.html', context=context)
