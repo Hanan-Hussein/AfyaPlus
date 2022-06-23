@@ -63,6 +63,8 @@
 
 .afya {
     color: #292968;
+.afya{
+    color:#292968 !important;
 }
 
 .btn-success,
@@ -78,7 +80,8 @@
 
 }
 
-.overflow {
+
+.overflow{
     background: linear-gradient(180deg, #F0F2FD 0%, #FFF8F9 100%);
 }
 
