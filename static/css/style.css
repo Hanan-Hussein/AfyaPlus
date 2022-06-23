@@ -1,7 +1,9 @@
-*{
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
 .wrapper {
     display: flex;
     align-items: stretch;
@@ -21,15 +23,15 @@
     color:brown;
 } */
 
-.edit{
+.edit {
     margin-right: auto;
 }
 
-.icon{
+.icon {
     color: blue;
 }
 
-.rounded-circle{
+.rounded-circle {
     width: 40px;
     height: 35px;
 }
@@ -44,11 +46,11 @@
     left: 0;
     overflow-x: hidden;
     padding-top: 20px;
-  }
+}
 
-.sidebar{
+.sidebar {
     display: flex;
-}  
+}
 
 /* .navbar {
     margin-left: 70px;
@@ -58,38 +60,74 @@
 .navbar-nav {
     margin-right: auto;
 }
-.afya{
-    color:#292968;
+
+.afya {
+    color: #292968;
 }
-.btn-success, .btn-success:hover,.btn-success:active{
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active {
     background-color: #605BFF !important;
 }
-.plusafya{
+
+.plusafya {
     background-color: #F6F8FE;
     height: 100vh;
     mix-blend-mode: multiply;
 
 }
-.overflow{
+
+.overflow {
     background: linear-gradient(180deg, #F0F2FD 0%, #FFF8F9 100%);
 }
+
 .sign-image {
     background-image: url('../hos.png');
     background-repeat: no-repeat;
     /* background-size: cover; */
-    background-position: center; 
-     /* height: 100vh; */
-  }
-.login-image{
+    background-position: center;
+    /* height: 100vh; */
+}
+
+.login-image {
     background-image: url('../register.png');
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
+
 @media (max-width: 768px) {
     #navbar {
         margin-left: -250px;
     }
+
     #navbar.active {
         margin-left: 0;
     }
+}
+
+.form-control,
+.form-control:focus,
+.form-control:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    border-color: #605BFF !important;
+}
+
+.sidebar {
+    width: 100%;
+    height: 95vh;
+    overflow-y: scroll;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%);
+}
+
+.full-body {
+    background: linear-gradient(180deg, #F0F2FD 0%, #FFF8F9 100%);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    justify-content: space-evenly !important;
 }

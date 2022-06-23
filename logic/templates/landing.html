@@ -1,7 +1,25 @@
 {% extends 'base.html' %}
-{% include navbar %}
 {% block content %}
-
-<h1>hello</h1>
+{% load static%}
+<div class="container border-rounded mt-3 sidebar d-flex flex-column">
+        <p class="lead">Welcome ... </p>
+    
+    <!-- The display -->
+    <div class="d-flex justify-content-evenly">
+        <div class="bg-white d-flex align-items-center rounded-pill p-4 m-3">
+            <div class="mx-2">
+                <img src="{% static 'patient.svg'%}" alt="" class="img-thumbnail">
+            </div>
+            <div>
+                <p>
+                    Patients
+                </p>
+                <p>
+                    250
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
