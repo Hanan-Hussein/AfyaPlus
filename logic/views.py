@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import doctorsForm, AppointmentsForm, Registration, LoginForm
 from django.contrib import messages
+from .models import Profile
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
+from .email import send_welcome_email
 
 
 def index(request):
@@ -53,6 +56,7 @@ def appointment(request):
     }
     return render(request, 'appointment.html', context=context)
 
+
 def register_request(request):
     if request.method == "POST":
         form = Registration(request.POST)
@@ -64,6 +68,26 @@ def register_request(request):
             request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
     form = Registration()
     return render(request, template_name="auth/register.html", context={"register_form": form})
+
+
+@login_required
+def register_doctor(request):
+    if request.method == "POST":
+        form = Registration(request.POST)
+        if form.is_valid():
+            new_profile = Profile(type_of_user='DOCTOR')
+            new_profile.save()
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            send_welcome_email(request.user.username,password, email)
+            form.save()
+            messages.success(request, "Registration successful, Please Login")
+            return redirect("login")
+        messages.error(
+            request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
+    form = Registration()
+    return render(request, template_name="auth/doctor_register.html", context={"register_form": form})
+
 
 def login_request(request):
     if request.method == "POST":

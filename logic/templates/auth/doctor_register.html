@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block content %}
+    <div class="new-doc">
+        <div class="container">
+            <form method='post' >
+                {%csrf_token%}
+                        {% bootstrap_form register_form layout='inline' %}
+    
+    
+                      <input type="submit" class="btn btn-success form-control my-3 signup" value="Submit">
+    
+              </form>
+        </div>
+    </div>
+{% endblock %}

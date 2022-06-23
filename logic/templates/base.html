@@ -17,6 +17,14 @@
     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'> 
+   
+     <div class="overflow">
+      <div class="container-fluid">
+        <div class="row d-flex justify-content-evenly">
+          <div class="col-sm-3">
+          {% include 'navbar.html' %}  
+          </div>
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
