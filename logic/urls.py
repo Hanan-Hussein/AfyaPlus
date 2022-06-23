@@ -5,15 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name= "home"),
     path('patientprofile', views.patientprofile, name= "patientprofile"),
-    path('new/doctor',views.new_doctor, name='new-doctor'),
+    path('new/doctor/',views.new_doctor, name='new-doctor'),
+    path('doctors/',views.doctor, name='doctors'),
     path('appointment',views.appointment, name= "appointment"),
 ]
-
-
-    # path('new/doctor',views.new_doctor, name='new-doctor'),
-    # configured the URL
-    # path('',views.index, name="homepage")
-    
-    # path('/',views.patientprofile, name="patientprofile")
-
-
