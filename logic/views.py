@@ -36,3 +36,8 @@ def new_doctor(request):
 #     all_doctors = doctors.objects.get()
 
 #     return render(request,'doctors.html',{"doctors":all_doctors})
+def home(request):
+    return render(request,'base.html')
+
+def patientprofile(request):
+    return render(request,'patient_profile.html')
