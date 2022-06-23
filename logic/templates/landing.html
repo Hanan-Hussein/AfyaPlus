@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static%}
-<div class="container border-rounded mt-3 sidebar d-flex flex-column">
-    <div class="mx-4 mt-3 mb-2">
-        <p class="lead">Welcome ... </p>
-    </div>   
+<div class="container rounded mt-3 sidebar d-flex flex-column">
+    <div class="mx-4 mt-3 mb-4">
+        <p class="lead bold-2">Welcome ... </p>
+    </div>
     <!-- The display -->
-    <div class="d-flex justify-content-around">
-        <div class="bg-white d-flex align-items-center rounded-pill px-5 py-3 m-3">
+    <div class="d-flex justify-content-around mb-5">
+        <div class="bg-white d-flex align-items-center rounded px-5 py-3 m-3">
             <div class="mx-2">
                 <img src="{% static 'patient.svg'%}" alt="" class="img-thumbnail img-1">
             </div>
@@ -15,12 +15,12 @@
                 <p>
                     Patients
                 </p>
-                <p>
+                <p class="bold-1">
                     250
                 </p>
             </div>
         </div>
-        <div class="bg-white d-flex align-items-center rounded-pill  px-5 py-3 m-3">
+        <div class="bg-white d-flex align-items-center rounded  px-5 py-3 m-3">
             <div class="mx-2">
                 <img src="{% static 'hospital.svg'%}" alt="" class="img-thumbnail img-2">
             </div>
@@ -28,12 +28,12 @@
                 <p>
                     Doctors
                 </p>
-                <p>
+                <p class="bold-1">
                     250
                 </p>
             </div>
         </div>
-        <div class="bg-white d-flex align-items-center rounded-pill px-5 py-3  m-3">
+        <div class="bg-white d-flex align-items-center rounded px-5 py-3  m-3">
             <div class="mx-2">
                 <img src="{% static 'beds.svg'%}" alt="" class="img-thumbnail img-3">
             </div>
@@ -41,12 +41,12 @@
                 <p>
                     Beds
                 </p>
-                <p>
+                <p class="bold-1">
                     250
                 </p>
             </div>
         </div>
-        <div class="bg-white d-flex align-items-center rounded-pill  px-5 py-3 m-3">
+        <div class="bg-white d-flex align-items-center rounded  px-5 py-3 m-3">
             <div class="mx-2">
                 <img src="{% static 'services.svg'%}" alt="" class="img-thumbnail img-4">
             </div>
@@ -54,12 +54,55 @@
                 <p>
                     Appointments
                 </p>
-                <p>
+                <p class="bold-1">
                     250
                 </p>
             </div>
         </div>
     </div>
+    <div class="mx-4 mt-5 mb-1">
+        <p class="lead bold-2">Recent Patient Activity</p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="bg-white mt-5 rounded p-5 w-75 ">
+            <div class="d-flex justify-content-around p-3 border-bottom">
+                <div>
+                    <p>user</p>
+                </div>
+                <div>
+                    <p>doctor</p>
+                </div>
+                <div>
+                    <p>date</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-around p-3  border-bottom">
+                <div>
+                    <p>user</p>
+                </div>
+                <div>
+                    <p>doctor</p>
+                </div>
+                <div>
+                    <p>date</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-around p-3  border-bottom">
+                <div>
+                    <p>user</p>
+                </div>
+                <div>
+                    <p>doctor</p>
+                </div>
+                <div>
+                    <p>date</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
 </div>
 
 {% endblock content %}
