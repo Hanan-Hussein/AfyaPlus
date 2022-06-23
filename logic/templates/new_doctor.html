@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+
+    <div class="col-md-4 phone-section">
+    </div>
+
+    <div class="col-md-4 form-section">
+      {{form.media}}
+
+    {% if form.errors %}
+        <p>Please enter correct value</p>
+      {% endif %}
+
+      <div class="panel panel-default" style="margin-top:50px;">
+
+        <div class="panel-body">
+
+          <div class="text-center">
+          <form action="{% url 'new-doctor' %}" method="post" enctype="multipart/form-data">
+
+            {% csrf_token%}
+            {% bootstrap_form form %}
+
+            <div class="form-group mt-2">
+              <input type="submit" class="btn btn-success login-button" value="Add">
+            </div>
+            <input type="hidden" name="next" value="/">
+          </form>
+        </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- Empty div -->
+    <div class="col-md-4"></div>
+  </div>
+
+</div>
+{% endblock %}

@@ -49,7 +49,18 @@ class Doctors(models.Model):
 
 
 class Appointments(models.Model):
-    date_appointment = models.DateTimeField()
-    users = models.ForeignKey(
-        User, related_name="users", on_delete=models.CASCADE)
-    symptoms = models.TextField()
+    date_appointment = models.DateTimeField() 
+    users = models.ForeignKey(User, related_name="users", on_delete=models.CASCADE)
+    symptoms =  models.TextField()
+
+
+class doctors(models.Model):
+    user = models.OneToOneField(User,  related_name='doctors' ,on_delete=models.CASCADE)
+    specialization_area = models.CharField(max_length=50,blank=True)
+    bio = models.CharField(max_length=500)
+    email = models.EmailField(default="", blank=True)
+    phone = models.CharField(max_length=15)
+    
+
+    def __str__(self):
+        return self.specialization_area
