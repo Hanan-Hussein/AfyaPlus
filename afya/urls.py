@@ -19,8 +19,13 @@ from logic import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('logic.urls')),
+]
+
+    # path('new/doctor',views.new_doctor, name='new-doctor'),
     # configured the URL
     # path('',views.index, name="homepage")
-     path('', include('logic.urls'))
+    
     # path('/',views.patientprofile, name="patientprofile")
-]
+
+
