@@ -15,14 +15,14 @@
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'> 
    
-     <div class="overflow">
-      <div class="container ">
+     <div class="overflow-div">
+      <div class="container-fluid ">
         <div class="row d-flex justify-content-evenly">
           <div class="col-sm-3">
           {% include 'navbar.html' %}  
           </div>
 
-          <div class="col-sm-8">
+          <div class="col-sm-9">
           {% block content %}
           {% endblock content %} 
           </div>

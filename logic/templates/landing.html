@@ -2,17 +2,57 @@
 {% block content %}
 {% load static%}
 <div class="container border-rounded mt-3 sidebar d-flex flex-column">
+    <div class="mx-4 mt-3 mb-2">
         <p class="lead">Welcome ... </p>
-    
+    </div>   
     <!-- The display -->
-    <div class="d-flex justify-content-evenly">
-        <div class="bg-white d-flex align-items-center rounded-pill p-4 m-3">
+    <div class="d-flex justify-content-around">
+        <div class="bg-white d-flex align-items-center rounded-pill px-5 py-3 m-3">
             <div class="mx-2">
-                <img src="{% static 'patient.svg'%}" alt="" class="img-thumbnail">
+                <img src="{% static 'patient.svg'%}" alt="" class="img-thumbnail img-1">
             </div>
             <div>
                 <p>
                     Patients
+                </p>
+                <p>
+                    250
+                </p>
+            </div>
+        </div>
+        <div class="bg-white d-flex align-items-center rounded-pill  px-5 py-3 m-3">
+            <div class="mx-2">
+                <img src="{% static 'hospital.svg'%}" alt="" class="img-thumbnail img-2">
+            </div>
+            <div>
+                <p>
+                    Doctors
+                </p>
+                <p>
+                    250
+                </p>
+            </div>
+        </div>
+        <div class="bg-white d-flex align-items-center rounded-pill px-5 py-3  m-3">
+            <div class="mx-2">
+                <img src="{% static 'beds.svg'%}" alt="" class="img-thumbnail img-3">
+            </div>
+            <div>
+                <p>
+                    Beds
+                </p>
+                <p>
+                    250
+                </p>
+            </div>
+        </div>
+        <div class="bg-white d-flex align-items-center rounded-pill  px-5 py-3 m-3">
+            <div class="mx-2">
+                <img src="{% static 'services.svg'%}" alt="" class="img-thumbnail img-4">
+            </div>
+            <div>
+                <p>
+                    Appointments
                 </p>
                 <p>
                     250

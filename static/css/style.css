@@ -63,8 +63,7 @@
 
 .afya {
     color: #292968;
-.afya{
-    color:#292968 !important;
+
 }
 
 .btn-success,
@@ -81,7 +80,7 @@
 }
 
 
-.overflow{
+.overflow-div {
     background: linear-gradient(180deg, #F0F2FD 0%, #FFF8F9 100%);
 }
 
@@ -125,6 +124,8 @@
     height: 95vh;
     overflow-y: scroll;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%);
+    border: 0.5px solid #E0E7FE;
+    border-radius: 30px !;
 }
 
 .full-body {
@@ -133,4 +134,16 @@
     width: 100vw;
     overflow: hidden;
     justify-content: space-evenly !important;
+}
+.img-1{
+    background-color: #FEDCF2;
+}
+.img-2{
+    background-color: #DEDDFF;
+}
+.img-3{
+    background-color: #FEF0CC;
+}
+.img-4{
+    background-color: #FEDFD6;
 }
