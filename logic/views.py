@@ -75,14 +75,21 @@ def register_doctor(request):
     if request.method == "POST":
         form = Registration(request.POST)
         if form.is_valid():
-            new_profile = Profile(type_of_user='DOCTOR')
-            new_profile.save()
+            print(request.user)
+            # new_profile = Profile(user=request.user,type_of_user='DOCTOR')
             email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            send_welcome_email(request.user.username,password, email)
+            password = form.cleaned_data['password1']
+            send_welcome_email(request.user.username,password,email)
             form.save()
+            new_profile = Profile.objects.update_or_create(
+                user__email=email,
+                defaults={
+                    'type_of_user':'DOCTOR'
+                }
+            )
+
             messages.success(request, "Registration successful, Please Login")
-            return redirect("login")
+            return redirect("home")
         messages.error(
             request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
     form = Registration()

@@ -75,6 +75,13 @@
     background-color: #605BFF !important;
 }
 
+.btn-dark,
+.btn-dark:hover,
+.btn-success:active {
+    background-color: #FF8F6B !important;
+    border-color: #FF8F6B;
+}
+
 .plusafya {
     background-color: #F6F8FE;
     height: 100vh;
@@ -109,6 +116,7 @@
     #navbar.active {
         margin-left: 0;
     }
+
 }
 
 .form-control,
