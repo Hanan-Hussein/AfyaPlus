@@ -29,7 +29,10 @@ def new_doctor(request):
 
 #     return render(request,'doctors.html',{"doctors":all_doctors})
 def home(request):
-    return render(request, 'base.html')
+    context = {
+
+    }
+    return render(request, 'landing.html', context=context)
 
 
 def patientprofile(request):
