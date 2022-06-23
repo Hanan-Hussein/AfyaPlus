@@ -1,4 +1,7 @@
-
+*{
+    margin: 0;
+    padding: 0;
+}
 .wrapper {
     display: flex;
     align-items: stretch;
@@ -55,7 +58,33 @@
 .navbar-nav {
     margin-right: auto;
 }
+.afya{
+    color:#292968;
+}
+.btn-success, .btn-success:hover,.btn-success:active{
+    background-color: #605BFF !important;
+}
+.plusafya{
+    background-color: #F6F8FE;
+    height: 100vh;
+    mix-blend-mode: multiply;
 
+}
+.overflow{
+    background: linear-gradient(180deg, #F0F2FD 0%, #FFF8F9 100%);
+}
+.sign-image {
+    background-image: url('../hos.png');
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-position: center; 
+     /* height: 100vh; */
+  }
+.login-image{
+    background-image: url('../register.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+}
 @media (max-width: 768px) {
     #navbar {
         margin-left: -250px;

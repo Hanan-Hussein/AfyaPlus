@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import doctorsForm, AppointmentsForm
+from .forms import doctorsForm, AppointmentsForm, Registration, LoginForm
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
 
 
 def index(request):
@@ -35,8 +37,8 @@ def home(request):
     return render(request, 'landing.html', context=context)
 
 
-def patientprofile(request):
-    return render(request, 'patient_profile.html')
+# def patientprofile(request):
+#     return render(request, 'patient_profile.html')
 
 
 def appointment(request):
@@ -50,3 +52,32 @@ def appointment(request):
         'form': form,
     }
     return render(request, 'appointment.html', context=context)
+
+def register_request(request):
+    if request.method == "POST":
+        form = Registration(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Registration successful, Please Login")
+            return redirect("login")
+        messages.error(
+            request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
+    form = Registration()
+    return render(request, template_name="auth/register.html", context={"register_form": form})
+
+def login_request(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "Invalid username or password")
+            return redirect('home')
+    form = LoginForm()
+    context = {
+        "form": form,
+    }
+    return render(request, 'auth/login.html', context=context)
