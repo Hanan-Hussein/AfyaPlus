@@ -31,11 +31,11 @@ def new_doctor(request):
     return render(request,'new_doctor.html',{"form":form})
 
 
-# def doctor(request):
-#     profile=Profile.objects.get(user=request.user.id)
-#     all_doctors = doctors.objects.get()
+def doctor(request):
+    profile=Profile.objects.filter(user=request.user.id).all()
+    all_doctors = doctors.objects.filter()
 
-#     return render(request,'doctors.html',{"doctors":all_doctors})
+    return render(request,'doctors.html',{"doctors":all_doctors})
 def home(request):
     return render(request,'base.html')
 

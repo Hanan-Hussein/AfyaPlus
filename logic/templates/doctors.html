@@ -7,37 +7,71 @@
         <div class="container mt-3 py-5 text-center">
             <div class="row mb-5">
                 <div class="row mb-5">
-                    <div class="col">
+                    <div class="heading">
                         <h1>Our Doctors</h1>
-                        <p>We believe in quality services,which is why we have the best.</p>
+                        <small><p>We believe in quality services,which is why we have the best.</p></small>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
+                <div class="column">
+                    <div class="col-md-10">
                         <div class="card">
                             <div class="card-body">
-                            {% comment %} {% for doctor in doctors %}
-
-                                <h3>{{doctor.user}}</h3>
-                                <h5>{{doctor.specialization_area}}</h5>
-                                <p>{{doctor.bio}}</p>
-
-                            {% endfor %} {% endcomment %}
-                                <div class="d-flex flex-row justify-content-center">
-                                    <div class="p-4">
-
-                                    </div>
-
+                            {% for doctor in doctors %}
+                                <div class="modal-header text-center">
+                                    <h1 class="text-center">{{doctor.user}}</h1>
                                 </div>
+                                <div class="modal-body">
+                                    <p><span style="font-weight:bold;">Bio:</span> {{doctor.bio}}</p>
+                                </div>
+                                <div class="modal-footer" style="display:block;">
+
+                                    <h4 class="text-center">Contact</h4>
+                                    <p><span class="bold">Phone Number:</span> {{doctor.phone}}</p>
+                                    <p><span class="bold">Email:</span> {{doctor.email}}</p>
+                                
+                                </div>
+                            {% endfor %}
                             </div>
-
-                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
 
-{% endblock %}
+<style>
+.container{
+    max-width: 800px;
+    margin-left: 270px;
+    margin-bottom: 20px;
+    height:100vh;
+    width: 100%;
+    border-radius: 25px;
+    background:rgb(227, 225, 225)
+}
+  .heading{
+    font-size: 25px;
+    font-weight: 500;
+    position:relative;
+    text-align: center;
+    padding: 5px 60px 0 ;
+}
+.heading::before{
+    content: '';
+    position:absolute;
+    height: 2px;
+    left: 40px;
+    bottom: 0;
+    width:90%;
+    background-color:rosybrown
+}
+.card-body{
+    margin-left: 20px;
+    flex-wrap: wrap;
+    padding:10px;
+}
 
+</style>
+
+
+
+{% endblock %}
