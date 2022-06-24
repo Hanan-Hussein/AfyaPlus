@@ -1,6 +1,5 @@
 from datetime import date
-from mimetypes import init
-import re
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import doctorsForm, AppointmentsForm, Registration, LoginForm
 from django.contrib import messages
@@ -29,7 +28,7 @@ def new_doctor(request):
 
 @login_required
 def home(request):
-    appointments = Appointments.objects.all() 
+    appointments = Appointments.objects.all()
     doctors = str(Profile.objects.all().filter(type_of_user='DOCTOR').count())
     patients = str(Profile.objects.all().filter(
         type_of_user='PATIENT').count())
@@ -42,7 +41,7 @@ def home(request):
         "doctors": doctors,
         "patients": patients,
         "appointments": appointments,
-        "appointment_count":appointment_count,
+        "appointment_count": appointment_count,
         "is_staff": is_staff,
         "is_admin": is_admin
 
@@ -67,10 +66,11 @@ def appointment(request):
         if form.is_valid():
             patient = form.cleaned_data["patient"]
             date_appointment = form.cleaned_data["date_appointment"]
-            symptoms=form.cleaned_data["symptoms"]
-            doctor =form.cleaned_data["doctor"]
-            print(patient,date_appointment,symptoms,doctor)
-            Appointments.objects.create(users = request.user,date_appointment=date_appointment,symptoms=symptoms,doctor=doctor)
+            symptoms = form.cleaned_data["symptoms"]
+            doctor = form.cleaned_data["doctor"]
+            print(patient, date_appointment, symptoms, doctor)
+            Appointments.objects.create(users=request.user, date_appointment=date_appointment,
+                                        symptoms=symptoms, doctor=User.objects.get(profiles=doctor))
             return redirect('home')
     context = {
         'form': form,
@@ -95,10 +95,10 @@ def register_request(request):
             request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
     form = Registration()
     context = {"register_form": form,
-            #    'is_staff': is_staff,
-            #    'is_admin': is_admin
+               #    'is_staff': is_staff,
+               #    'is_admin': is_admin
                }
-    return render(request, template_name="auth/register.html",context=context)
+    return render(request, template_name="auth/register.html", context=context)
 
 
 @login_required
@@ -256,6 +256,7 @@ def register_admin(request):
     form = Registration()
     return render(request, template_name="auth/doctor_register.html", context={"register_form": form, 'is_staff': is_staff,
                                                                                'is_admin': is_admin})
+
 
 def logout_request(request):
     logout(request)

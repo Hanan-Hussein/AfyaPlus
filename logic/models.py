@@ -26,7 +26,7 @@ class Profile(models.Model):
         default=PATIENT,
     )
 
-    def _str_(self):
+    def __str__(self):
         return self.user.username
 
     @classmethod
@@ -60,4 +60,4 @@ class Appointments(models.Model):
         User, related_name="users", on_delete=models.CASCADE)
     symptoms = models.TextField()
     doctor = models.ForeignKey(
-        doctors,  related_name='appointments', on_delete=models.CASCADE, null=True)
+        User,  related_name='doctors_ap', on_delete=models.CASCADE, null=True)

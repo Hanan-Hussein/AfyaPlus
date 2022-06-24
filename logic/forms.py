@@ -1,9 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
-from .models import doctors
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django import forms
-from .models import Appointments, Profile
+from .models import Appointments, Profile,doctors
 from django.forms.widgets import DateInput
 
 
@@ -11,10 +10,14 @@ class AppointmentsForm(forms.ModelForm):
     patient = forms.CharField(max_length=100)
     patient.widget.attrs.update(
         {'class': 'form-control', 'readonly': True})
+    doctors_use =  Profile.objects.all().filter(
+        type_of_user='DOCTOR')
 
+
+    doctor = forms.ModelChoiceField(queryset=doctors_use)
     class Meta:
         model = Appointments
-        fields = ("doctor", "date_appointment", "symptoms")
+        fields = ( "date_appointment", "symptoms")
 
     def __init__(self, *args, **kwargs):
         super(AppointmentsForm, self).__init__(*args, **kwargs)
@@ -23,7 +26,7 @@ class AppointmentsForm(forms.ModelForm):
         self.fields['symptoms'].widget.attrs.update(
             {'class': 'form-control', 'rows': '5'})
         self.fields['doctor'].widget.attrs.update(
-             {'class': 'form-select  w-100 form-control'})
+             {'class': 'form-select  w-100 form-control '})
         
 
     field_order = ['patient', 'date_appointment', 'symptoms', 'doctor']
