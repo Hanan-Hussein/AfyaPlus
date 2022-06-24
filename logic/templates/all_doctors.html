@@ -13,9 +13,11 @@
 
             </div>
             <div>
-                <a href="{%url 'new_doc'%}">
-                    <button class="btn btn-dark">Add a Doctor</button>
-                </a>
+               {% if is_admin %}
+               <a href="{%url 'new_doc'%}">
+                <button class="btn btn-dark">Add a Doctor</button>
+            </a>
+               {% endif %}
             </div>
         </div>
     </div>

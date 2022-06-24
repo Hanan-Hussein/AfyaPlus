@@ -11,27 +11,37 @@
                 <span class="ml-3 " style="color:#292968">AfyaPlus</span>
             </a>
         </li>
+        {% if is_staff %}
+
         <li>
             <a href="{%url 'home'%}" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <img src="../../static/dashboard.svg" alt="">
                 <span class="ml-3">Dashboard</span>
             </a>
         </li>
-        <!-- <li>
-            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                <img src="../../static/account.svg" alt="">
-                <span class="flex-1 ml-3 whitespace-nowrap">Appointments</span>
-            </a>
-        </li> -->
+        {% endif %}
+
+        {% if is_staff %}
         <li>
-            <a href="{%url 'patients'%}" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                <img src="../../static/Fever.svg" alt="">
-                <span class="flex-1 ml-3 whitespace-nowrap">Patients</span>
-                <!-- <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">3</span> -->
+           
+            <a href="{%url 'admins'%}" class="flex items-center p-2 text-base my-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <img src="../../static/account.svg" alt="">
+                <span class="flex-1 ml-3 whitespace-nowrap">Admin</span>
             </a>
         </li>
+        {% endif %}
+       {% if is_staff %}
+       <li>
+        <a href="{%url 'patients'%}" class="flex items-center p-2  text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <img src="../../static/Fever.svg" alt="">
+            <span class="flex-1 ml-3 whitespace-nowrap">Patients</span>
+            <!-- <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">3</span> -->
+        </a>
+    </li>
+       {% endif %}
+        
         <li>
-            <a href="{%url 'doctors'%}" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <a href="{%url 'doctors'%}" class="flex items-center p-2 my-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <img src="../../static/doctor.svg" alt="">
                 <span class="flex-1 ml-3 whitespace-nowrap">Doctor</span>
             </a>
@@ -43,7 +53,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <a href="#" class="flex items-center p-2 text-base my-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <img src="../../static/combochart.svg" alt="">
                 <span class="flex-1 ml-3 whitespace-nowrap">Report</span>
             </a>

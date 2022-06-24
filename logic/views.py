@@ -5,6 +5,7 @@ from .models import Profile, Appointments
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from .email import send_welcome_email
+from django.db.models import Q
 
 
 def index(request):
@@ -34,14 +35,18 @@ def new_doctor(request):
 
 #     return render(request,'doctors.html',{"doctors":all_doctors})
 def home(request):
-    doctors=str(Profile.objects.all().filter(type_of_user='DOCTOR').count())
-    patients=str(Profile.objects.all().filter(type_of_user='PATIENT').count())
-    appointments=str(Appointments.objects.all().count())
-
+    doctors = str(Profile.objects.all().filter(type_of_user='DOCTOR').count())
+    patients = str(Profile.objects.all().filter(
+        type_of_user='PATIENT').count())
+    appointments = str(Appointments.objects.all().count())
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
     context = {
-        "doctors":doctors,
-        "patients":patients,
-        "appointments":appointments
+        "doctors": doctors,
+        "patients": patients,
+        "appointments": appointments,
+        "is_staff":is_staff,
+        "is_admin":is_admin
 
     }
     return render(request, 'landing.html', context=context)
@@ -53,6 +58,9 @@ def patientprofile(request):
 
 def appointment(request):
     form = AppointmentsForm()
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
     if request.method == 'POST':
         form = AppointmentsForm(request.POST)
         if form.is_valid():
@@ -60,11 +68,16 @@ def appointment(request):
             return redirect('home')
     context = {
         'form': form,
+        'is_staff':is_staff,
+        'is_admin':is_admin
     }
     return render(request, 'appointment.html', context=context)
 
 
 def register_request(request):
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
     if request.method == "POST":
         form = Registration(request.POST)
         if form.is_valid():
@@ -74,11 +87,15 @@ def register_request(request):
         messages.error(
             request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
     form = Registration()
-    return render(request, template_name="auth/register.html", context={"register_form": form})
+    return render(request, template_name="auth/register.html", context={"register_form": form, 'is_staff':is_staff,
+        'is_admin':is_admin})
 
 
 @login_required
 def register_doctor(request):
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
     if request.method == "POST":
         form = Registration(request.POST)
         if form.is_valid():
@@ -86,12 +103,12 @@ def register_doctor(request):
             # new_profile = Profile(user=request.user,type_of_user='DOCTOR')
             email = form.cleaned_data['email']
             password = form.cleaned_data['password1']
-            send_welcome_email(request.user.username,password,email)
+            send_welcome_email(request.user.username, password, email)
             form.save()
             new_profile = Profile.objects.update_or_create(
                 user__email=email,
                 defaults={
-                    'type_of_user':'DOCTOR'
+                    'type_of_user': 'DOCTOR'
                 }
             )
 
@@ -100,10 +117,36 @@ def register_doctor(request):
         messages.error(
             request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
     form = Registration()
-    return render(request, template_name="auth/doctor_register.html", context={"register_form": form})
+    return render(request, template_name="auth/doctor_register.html", context={"register_form": form, 'is_staff':is_staff,
+        'is_admin':is_admin})
+
+
+@login_required
+def register_patients_byadmin(request):
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
+    if request.method == "POST":
+        form = Registration(request.POST)
+        if form.is_valid():
+            # new_profile = Profile(user=request.user,type_of_user='DOCTOR')
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            send_welcome_email(request.user.username, password, email)
+            form.save()
+            messages.success(request, "Registration successful, Please Login")
+            return redirect("patients")
+        messages.error(
+            request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
+    form = Registration()
+    return render(request, template_name="auth/patient_b2b.html", context={"register_form": form, 'is_staff':is_staff,
+        'is_admin':is_admin})
 
 
 def login_request(request):
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -117,48 +160,77 @@ def login_request(request):
     form = LoginForm()
     context = {
         "form": form,
+        'is_staff':is_staff,
+        'is_admin':is_admin
     }
     return render(request, 'auth/login.html', context=context)
 
+
 @login_required
 def all_doctors(request):
-    doctors=Profile.objects.all().filter(type_of_user='DOCTOR')
-    context={
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
+    doctors = Profile.objects.all().filter(type_of_user='DOCTOR')
+    context = {
         "doctors": doctors,
+        'is_staff':is_staff,
+        'is_admin':is_admin
     }
-    return render(request,'all_doctors.html',context=context)
+    return render(request, 'all_doctors.html', context=context,)
 
 
 @login_required
 def all_patients(request):
-    patients=Profile.objects.all().filter(type_of_user='PATIENT')
-    context={
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
+    patients = Profile.objects.all().filter(type_of_user='PATIENT')
+    context = {
         "patients": patients,
+        'is_staff':is_staff,
+        'is_admin':is_admin
     }
-    return render(request,'all_patients.html',context=context)
+    return render(request, 'all_patients.html', context=context)
+
+
+def all_admin(request):
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
+    admins = Profile.objects.all().filter(type_of_user='ADMIN')
+    context = {
+        "admins": admins,
+        'is_staff':is_staff,
+        'is_admin':is_admin
+    }
+    return render(request, 'all_admin.html', context=context)
 
 
 @login_required
 def register_admin(request):
+    is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN')|Q(type_of_user='DOCTOR')).filter(user=request.user)
+    is_admin=Profile.objects.all().filter(type_of_user='ADMIN').filter(user=request.user)
+
     if request.method == "POST":
         form = Registration(request.POST)
         if form.is_valid():
-            print(request.user)
             # new_profile = Profile(user=request.user,type_of_user='DOCTOR')
             email = form.cleaned_data['email']
             password = form.cleaned_data['password1']
-            send_welcome_email(request.user.username,password,email)
+            send_welcome_email(request.user.username, password, email)
             form.save()
             new_profile = Profile.objects.update_or_create(
                 user__email=email,
                 defaults={
-                    'type_of_user':'ADMIN'
+                    'type_of_user': 'ADMIN'
                 }
             )
 
             messages.success(request, "Registration successful")
-            return redirect("doctors")
+            return redirect("admins")
         messages.error(
             request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
     form = Registration()
-    return render(request, template_name="auth/doctor_register.html", context={"register_form": form})
+    return render(request, template_name="auth/doctor_register.html", context={"register_form": form, 'is_staff':is_staff,
+        'is_admin':is_admin})

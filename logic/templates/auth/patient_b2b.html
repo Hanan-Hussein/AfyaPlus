@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block content %}
+<div class="container rounded mt-3 sidebar d-flex flex-column">
+    <div class="container-fluid">
+        <div class="mx-4 mt-3 mb-4 my-5">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="lead bold-2 ">Add New Patient  </p>
+    
+                </div>
+                <div>
+                    <a href="{%url 'patients'%}">
+                        <button class="btn btn-dark">Back</button>
+                    </a>
+                </div>
+            </div>        </div>
+
+            <form method='post'  >
+                {%csrf_token%}
+                <div class="d-flex justify-content-between w-100 flex-wrap ">
+
+                    {% bootstrap_form register_form layout='inline' %}
+
+                </div>    
+                <div class="d-flex justify-content-end">
+                    <input type="submit" class="btn btn-dark  my-3 signup" value="Add Patient">
+
+                </div>
+
+    
+    
+              </form>
+
+        </div>
+    </div>
+{% endblock %}

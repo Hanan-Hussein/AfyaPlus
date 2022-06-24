@@ -9,12 +9,12 @@
     <div class="mx-4 mt-3 mb-4 my-5">
         <div class="d-flex justify-content-between">
             <div>
-                <p class="lead bold-2 ">All Patients  </p>
+                <p class="lead bold-2 ">All Admins  </p>
 
             </div>
             <div>
-                <a href="{%url 'patient_reg'%}">
-                    <button class="btn btn-dark">Add a Patient</button>
+                <a href="{%url 'reg_admins'%}">
+                    <button class="btn btn-dark">Add an Admin</button>
                 </a>
             </div>
         </div>
@@ -28,11 +28,11 @@
           </tr>
         </thead>
         <tbody>
-         {% for patient in patients %}
+         {% for admin in admins %}
          <tr class="doc_record  border-1">
-            <td >{{patient.user.username}}</td>
-            <td>{{patient.user.email}}</td>
-            <td>{{patient.user.last_login}}</td>
+            <td >{{admin.user.username}}</td>
+            <td>{{admin.user.email}}</td>
+            <td>{{admin.user.last_login}}</td>
           </tr>
          {% endfor %}
     
