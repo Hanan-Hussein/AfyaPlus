@@ -11,11 +11,6 @@ from .email import send_welcome_email
 from django.db.models import Q
 
 
-def index(request):
-
-    return render(request, 'doctors.html')
-
-
 def new_doctor(request):
     if request.method == "POST":
         form = doctorsForm(request.POST, request.FILES)
@@ -32,17 +27,13 @@ def new_doctor(request):
     return render(request, 'new_doctor.html', {"form": form})
 
 
-# def doctor(request):
-#     profile=Profile.objects.get(user=request.user.id)
-#     all_doctors = doctors.objects.get()
-
-#     return render(request,'doctors.html',{"doctors":all_doctors})
 @login_required
 def home(request):
+    appointments = Appointments.objects.all() 
     doctors = str(Profile.objects.all().filter(type_of_user='DOCTOR').count())
     patients = str(Profile.objects.all().filter(
         type_of_user='PATIENT').count())
-    appointments = str(Appointments.objects.all().count())
+    appointment_count = str(appointments.count())
     is_staff = Profile.objects.all().filter(Q(type_of_user='ADMIN') | Q(
         type_of_user='DOCTOR')).filter(user=request.user)
     is_admin = Profile.objects.all().filter(
@@ -51,6 +42,7 @@ def home(request):
         "doctors": doctors,
         "patients": patients,
         "appointments": appointments,
+        "appointment_count":appointment_count,
         "is_staff": is_staff,
         "is_admin": is_admin
 
