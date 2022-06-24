@@ -9,7 +9,9 @@ urlpatterns = [
     path('add-doctor',views.register_doctor, name= "new_doc"),
     path('login',views.login_request , name= "login"),
     path('register',views.register_request , name= "register"),
-    path('all_doctors',views.all_doctors,name="doctors")
+    path('all_doctors',views.all_doctors,name="doctors"),
+    path('all_patients',views.all_patients,name="patients")
+
 
 ]
 

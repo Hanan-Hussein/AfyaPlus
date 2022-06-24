@@ -9,12 +9,12 @@
     <div class="mx-4 mt-3 mb-4 my-5">
         <div class="d-flex justify-content-between">
             <div>
-                <p class="lead bold-2 ">All Doctors  </p>
+                <p class="lead bold-2 ">All Patients  </p>
 
             </div>
             <div>
                 <a href="{%url 'new_doc'%}">
-                    <button class="btn btn-dark">Add a Doctor</button>
+                    <button class="btn btn-dark">Add a Patient</button>
                 </a>
             </div>
         </div>
@@ -24,19 +24,15 @@
           <tr class="doc_record2">
             <th>Username</th>
             <th>Email</th>
-            <th>Specialization</th>
             <th>last login</th>
-
           </tr>
         </thead>
         <tbody>
-         {% for doctor in doctors %}
+         {% for patient in patients %}
          <tr class="doc_record  border-1">
-            <td >{{doctor.user.username}}</td>
-            <td>{{doctor.user.email}}</td>
-            <td>{{doctor.specialization}}</td>
-            <td>{{doctor.user.last_login}}</td>
-
+            <td >{{patient.user.username}}</td>
+            <td>{{patient.user.email}}</td>
+            <td>{{patient.user.last_login}}</td>
           </tr>
          {% endfor %}
     

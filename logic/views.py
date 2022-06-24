@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import doctorsForm, AppointmentsForm, Registration, LoginForm
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, Appointments
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from .email import send_welcome_email
@@ -35,8 +35,13 @@ def new_doctor(request):
 #     return render(request,'doctors.html',{"doctors":all_doctors})
 def home(request):
     doctors=str(Profile.objects.all().filter(type_of_user='DOCTOR').count())
+    patients=str(Profile.objects.all().filter(type_of_user='PATIENT').count())
+    appointments=str(Appointments.objects.all().count())
+
     context = {
-        "doctors":doctors
+        "doctors":doctors,
+        "patients":patients,
+        "appointments":appointments
 
     }
     return render(request, 'landing.html', context=context)
@@ -122,3 +127,38 @@ def all_doctors(request):
         "doctors": doctors,
     }
     return render(request,'all_doctors.html',context=context)
+
+
+@login_required
+def all_patients(request):
+    patients=Profile.objects.all().filter(type_of_user='PATIENT')
+    context={
+        "patients": patients,
+    }
+    return render(request,'all_patients.html',context=context)
+
+
+@login_required
+def register_admin(request):
+    if request.method == "POST":
+        form = Registration(request.POST)
+        if form.is_valid():
+            print(request.user)
+            # new_profile = Profile(user=request.user,type_of_user='DOCTOR')
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            send_welcome_email(request.user.username,password,email)
+            form.save()
+            new_profile = Profile.objects.update_or_create(
+                user__email=email,
+                defaults={
+                    'type_of_user':'ADMIN'
+                }
+            )
+
+            messages.success(request, "Registration successful")
+            return redirect("doctors")
+        messages.error(
+            request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
+    form = Registration()
+    return render(request, template_name="auth/doctor_register.html", context={"register_form": form})
