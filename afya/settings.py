@@ -19,6 +19,7 @@ import django_on_heroku
 import os
 from decouple import config,Csv
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,8 +34,7 @@ SECRET_KEY = 'django-insecure-^+w&i8!ds!@q_u%hn@25_w@tdrb4g#pt5n_a=hb52r0pydop$&
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+LOGIN_URL='login'
 # Application definition
 
 INSTALLED_APPS = [

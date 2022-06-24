@@ -10,7 +10,7 @@ from django.forms.widgets import DateInput
 class AppointmentsForm(forms.ModelForm):
     patient = forms.CharField(max_length=100)
     patient.widget.attrs.update(
-        {'class': 'form-control', 'readonly': True, 'value': 'Jaffar Hussein'})
+        {'class': 'form-control', 'readonly': True})
 
     class Meta:
         model = Appointments
@@ -23,7 +23,8 @@ class AppointmentsForm(forms.ModelForm):
         self.fields['symptoms'].widget.attrs.update(
             {'class': 'form-control', 'rows': '5'})
         self.fields['doctor'].widget.attrs.update(
-             {'class': 'form-select'})
+             {'class': 'form-select  w-100 form-control'})
+        
 
     field_order = ['patient', 'date_appointment', 'symptoms', 'doctor']
 
