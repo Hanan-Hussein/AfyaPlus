@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+{% load static %}
+<div class="container rounded mt-3 sidebar d-flex flex-column">
+
+<div class="container-fluid">
+    <div class="mx-4 mt-3 mb-4 my-5">
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="lead bold-2 ">All Doctors  </p>
+
+            </div>
+            <div>
+                <a href="{%url 'new_doc'%}">
+                    <button class="btn btn-dark">Add a Doctor</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr class="doc_record2">
+            <th>Username</th>
+            <th>Email</th>
+            <th>Specialization</th>
+          </tr>
+        </thead>
+        <tbody>
+         {% for doctor in doctors %}
+         <tr class="doc_record  border-1">
+            <td >{{doctor.user.username}}</td>
+            <td>{{doctor.user.email}}</td>
+            <td>{{doctor.specialization}}</td>
+          </tr>
+         {% endfor %}
+    
+    
+        </tbody>
+      </table>
+</div>
+
+</div>
+{% endblock %}

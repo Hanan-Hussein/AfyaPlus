@@ -5,8 +5,17 @@
 <div class="container rounded mt-3 sidebar d-flex flex-column">
     <div class="container-fluid">
         <div class="mx-4 mt-3 mb-4 my-5">
-            <p class="lead bold-2 ">Add New Doctor  </p>
-        </div>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="lead bold-2 ">Add New Doctor  </p>
+    
+                </div>
+                <div>
+                    <a href="{%url 'doctors'%}">
+                        <button class="btn btn-dark">Back</button>
+                    </a>
+                </div>
+            </div>        </div>
 
             <form method='post'  >
                 {%csrf_token%}

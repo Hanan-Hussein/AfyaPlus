@@ -34,14 +34,16 @@ def new_doctor(request):
 
 #     return render(request,'doctors.html',{"doctors":all_doctors})
 def home(request):
+    doctors=str(Profile.objects.all().filter(type_of_user='DOCTOR').count())
     context = {
+        "doctors":doctors
 
     }
     return render(request, 'landing.html', context=context)
 
 
-# def patientprofile(request):
-#     return render(request, 'patient_profile.html')
+def patientprofile(request):
+    return render(request, 'patient_profile.html')
 
 
 def appointment(request):
@@ -89,7 +91,7 @@ def register_doctor(request):
             )
 
             messages.success(request, "Registration successful, Please Login")
-            return redirect("home")
+            return redirect("doctors")
         messages.error(
             request, "Unsuccessful registration.Please ensure you have entered a strong password and valid email")
     form = Registration()
@@ -112,3 +114,11 @@ def login_request(request):
         "form": form,
     }
     return render(request, 'auth/login.html', context=context)
+
+@login_required
+def all_doctors(request):
+    doctors=Profile.objects.all().filter(type_of_user='DOCTOR')
+    context={
+        "doctors": doctors,
+    }
+    return render(request,'all_doctors.html',context=context)

@@ -102,6 +102,13 @@
     /* height: 100vh; */
 }
 
+.doc_record {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+    border: 0.5px solid #E0E7FE !important;
+    border-radius: 10px !important;
+
+}
+
 .login-image {
     background-image: url('../register.png');
     background-repeat: no-repeat;
