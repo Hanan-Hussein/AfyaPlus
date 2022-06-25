@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import DateTimeInput, ModelForm
 from django import forms
 from .models import Appointments, Profile,doctors
 from django.forms.widgets import DateInput
@@ -21,8 +21,11 @@ class AppointmentsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AppointmentsForm, self).__init__(*args, **kwargs)
-        self.fields['date_appointment'].widget = DateInput(
-            attrs={'class': 'form-control', 'type': 'date'})
+        self.fields['date_appointment'].widget= DateTimeInput(
+            format='%d/%m/%Y %H:%M', attrs={'class': 'form-control', 'type': 'datetime-local'},
+        )
+        # self.fields['date_appointment'].widget = DA(
+        #     attrs={'class': 'form-control', 'type': 'datetime'})
         self.fields['symptoms'].widget.attrs.update(
             {'class': 'form-control', 'rows': '5'})
         self.fields['doctor'].widget.attrs.update(
