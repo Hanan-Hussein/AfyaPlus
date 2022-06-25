@@ -28,7 +28,7 @@ def new_doctor(request):
 
 @login_required
 def home(request):
-    appointments = Appointments.objects.all()
+    appointments = Appointments.objects.all().order_by('date_appointment')
     doctors = str(Profile.objects.all().filter(type_of_user='DOCTOR').count())
     patients = str(Profile.objects.all().filter(
         type_of_user='PATIENT').count())
